@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/popup.js"> </script>
+<style>
+	div {
+		font-family: "나눔스퀘어";
+		font-size: 13pt;
+		/*font-weight: lighter;*/
+		/*vertical-align: middle;*/
+	}
+	table {
+		margin: 0 0 0 0;
+	}
+	table a {
+		text-decoration: none;
+		color: black;
+	}
+	table a:visited {
+		color: black;
+	}
+	table .pad {
+		padding-top: 10px;
+	}
+	
+</style>
+</head>
+<body>
+<div>
+<form>
+	<table width="100%">
+		<tr>
+			<td class="pad">
+				<select id="category" onchange="choice();">
+					<option selected="true" value="movie">영화</option>
+					<option>드라마</option>
+					<option>책</option>
+					<option>음악</option>
+				</select>
+			</td>
+			<td id="tdFile" class="pad">
+				<input type='file'>
+			</td>
+		</tr>
+		<tr>
+			<td class="pad">제목</td>
+			<td><input type="text" id="title"></input></td>
+		</tr>
+		<tr>
+			<td>내용 </td>
+			<td><textarea></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="pad">
+				<button onclick="sendOgeul();">완료</button>
+				<button onclick="popupClose();">취소</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>오글 - art and sensitivity</title>
+<script type="text/javascript" src="js/loginForm.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("id").focus();
+	};
+</script>
+<style>
+body {
+	background:  url(images/KakaoTalk_20170316_102145485.jpg) no-repeat;
+    background-size: cover;
+}
+
+#div {
+}
+
+#inputarea {
+	font-family: "아리따-돋움(TTF)";
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 400px;
+	height: 400px;
+	border-radius: 200px;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	position:absolute;
+	margin:auto;
+	/*<div> 태그는 블럭 타입의 태그라 vertical-align:middle 이 안먹음*/
+	/*DIV를 vertical-align:middle이 적용되도록 하기 위해서는 display속성이 table이여야 함*/
+}
+
+#inputarea >div {
+	height: 200px;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	position:absolute;
+	margin:auto;
+}
+
+#idpass td {
+	text-align: right;
+}
+
+#idpass input {
+border-top-width: 0;
+border-left-width: 0;
+border-right-width: 0;
+border-bottom-width: 1px;
+border-color: black;
+background-color:transparent;
+}
+
+.button {
+font-size: 20pt;
+font-weight: bold;
+color: gray;
+font-family: "아리따-돋움(TTF)";
+background-color: white;
+border-color: black;
+border-width: 0px;
+padding: 8px;
+border-radius:8px;
+margin-top: 2px;
+}
+
+.button:hover {
+	cursor: pointer;
+background-color: gray;
+	animation: backgroundGlow .4s;
+}
+
+@keyframes backgroundGlow {
+	from {
+	background-color: white;
+	}
+	50% {
+	background-color: #D5D5D5;
+	}
+	to {
+	background-color: #A6A6A6;
+	}
+}
+
+a {
+	color: black;
+	text-decoration: none;
+	font-size: 10pt
+}
+a img {
+	border: 0;
+}
+a:visited {
+	color: #353535;
+}
+a:hover {
+	text-decoration: overline;
+}
+</style>
+</head>
+<body>
+<form action="" method="post">
+	<div id="inputarea" style="">
+	<!-- div 태그의 align은 텍스트의 정렬을 지정하는 것임 -->
+		<div align="center" style="">
+			<a href="index.html"><img src="images/KakaoTalk_20170316_131033908.png"></a>
+			<table style="margin-top:40px">
+				<tr>
+					<td>
+						<table id="idpass">
+							<tr>
+								<td>ID</td>
+								<td><input type="text" id="id"></td>
+							</tr>
+							<tr>
+								<td>PASS</td>
+								<td><input type="password" id="pass"></td>
+							</tr>
+						</table>
+					</td>
+					<td style="padding-left:10px" align="center">
+						<input class="button" type="submit" value="V" onclick="confirmNull();"><br>
+					</td>
+				</tr>
+			</table>
+			<div align="center" style="margin-top:30px">
+				<a href="findId.html">FIND ID</a> &nbsp; <a href="findpwd.html">FIND PWD</a>
+				 &nbsp; <b><a href="join.html">JOIN</a></b>
+			</div>
+		</div>
+	</div>
+</form>
+</body>
+</html>

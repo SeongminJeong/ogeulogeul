@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 찾기</title>
+<script type="text/javascript" src="js/findId.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("name").focus();
+	};
+</script>
+<style>
+.button {
+font-size: 11pt;
+color: white;
+font-family: "아리따-돋움(TTF)";
+background-color: #353535;
+border-color: white;
+border-width: 0px;
+padding: 5px;
+border-radius:5px;
+margin-top: 2px;
+}
+
+.button:hover {
+	cursor: pointer;
+}
+div {
+	align :center;
+	width: 500px;
+	height: 300px;
+	border: 1px solid red;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	position:absolute;
+	margin:auto;
+}
+</style>
+</head>
+<body style="font-family:'아리따-돋움(TTF)';">
+<div align="center">
+	<table>
+		<tr>
+			<td>이름</td>
+			<td><input type="text" id="name" onchange="removeBorder(this);"></td>
+		</tr>
+		<tr>
+			<td>생년월일</td>
+			<td>
+				<input type="text" size="4" maxlength="4" id="year" onchange="removeBorder(this);">년 
+				<input type="text" size="2" maxlength="2" id="month" onchange="removeBorder(this);">월 
+				<input type="text" size="2" maxlength="2" id="date" onchange="removeBorder(this);">일
+			</td>
+		</tr>
+		<tr>
+		<tr>
+			<td>이메일</td>
+			<td>
+				<input type="text" id="email_id" size="10" onchange="removeBorder(this);"> @ 
+				<input type="text" id="email_domain" size="10" onchange="removeBorder(this);"> &nbsp;
+				<select id="email_select" onchange="emailSetting();">
+					<option selected>직접 입력</option>
+					<option>naver.com</option>
+					<option>daum.net</option>
+					<option>hamail.net</option>
+					<option>gmail.com</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right">
+				<input class="button" type="submit" value="아이디 찾기" onclick="confirmNull();">
+				<button class="button" onclick="alert('로그인 화면으로 돌아갑니다');location.href='loginForm.html';" >취소</button>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>
