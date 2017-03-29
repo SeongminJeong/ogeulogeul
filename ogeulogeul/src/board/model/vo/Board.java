@@ -22,7 +22,7 @@ public class Board {
 	public Board(int boardNum, String memberId,
 			int category, String title, String content,
 			String stillcut, String producer) {
-		this.boardNum = 0;
+		this.boardNum = boardNum;
 		this.memberId = memberId;
 		this.category = category;
 		this.uploadDate = new Date();

@@ -18,9 +18,10 @@ public class BoardDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		
-		String query = "select boardNum from board "
-				+ "where rownum = 1 "
-				+ "order by boardNum desc";
+		String query = "select board_num "
+				+ "from (select * from board "
+				+ "order by board_num desc) "
+				+ "where rownum = 1 ";
 		
 		try {
 			
@@ -28,16 +29,16 @@ public class BoardDao {
 			rs = stmt.executeQuery(query);
 			
 			if (rs.next())
-				boardNum = rs.getInt(boardNum);
+				boardNum = rs.getInt("board_num") + 1;
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		} finally {
 			close(rs);
 			close(stmt);
 		}
-		
-		return boardNum + 1;
+
+		return boardNum;
 	}
 	
 	public List<Board> selectList(Connection conn) {
@@ -55,7 +56,6 @@ public class BoardDao {
 		String category = "";
 		PreparedStatement pstmt = null;
 		Statement stmt = null;
-		ResultSet rs = null;
 		
 		switch (b.getCategory()) {
 		case 1:
@@ -82,7 +82,6 @@ public class BoardDao {
 				+ " values("
 				+ "?, ?, ?, 0, 0, ?, ?, ?, ?, ?)";
 		
-		
 		try {
 
 			pstmt = conn.prepareStatement(query2);
@@ -94,15 +93,19 @@ public class BoardDao {
 			pstmt.setString(6, b.getContent());
 			pstmt.setString(7, b.getStillcut());
 			pstmt.setString(8, b.getProducer());
-			
+
+			System.out.println("1");
 			stmt = conn.createStatement();
-			if ((resultBoard = stmt.executeUpdate(query)) > 0)
+			if ((resultBoard = stmt.executeUpdate(query)) > 0) {
+
 				result = pstmt.executeUpdate();
-			
+				System.out.println("2");
+			}
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			
 		} finally {
-			close(rs);
 			close(stmt);
 			close(pstmt);
 		}

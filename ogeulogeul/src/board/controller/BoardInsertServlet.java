@@ -35,19 +35,26 @@ public class BoardInsertServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		//response.getWriter().append("업로드가 성공적으로 완료되었습니다.");
 		
+		String answer;
 		int category = Integer.parseInt(request.getParameter("category"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		content = content.equals("")?" ":content;
 		String stillcut = request.getParameter("stillcut");
 		String producer = request.getParameter("producer");
 		String memberId = request.getParameter("memberId");
 		
 		BoardService bs = new BoardService();
 		
-		bs.insertBoard(new Board(bs.assignBoardNum(), 
-				memberId, category, title, content, stillcut, producer));
+		if (bs.insertBoard(new Board(bs.assignBoardNum(), 
+				memberId, category, title, content, stillcut, producer)) > 0)
+			answer = "업로드가 성공적으로 완료되었습니다.";
+		else
+			answer = "업로드에 실패했습니다.";
+
+		System.out.println(answer);
 		
-		response.getWriter().append("홍길동");
+		response.getWriter().append(answer);
 		
 		/*
 		PrintWriter out = response.getWriter();

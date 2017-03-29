@@ -30,6 +30,7 @@ public class BoardService {
 		Connection conn = getConnection();
 		int result = new BoardDao().insertBoard(conn, b);
 		close(conn);
+		System.out.println(result);
 		return result;
 		
 	}
