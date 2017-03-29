@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.service.BoardService;
+import board.model.vo.Board;
+
 /**
  * Servlet implementation class BoardInsertServlet
  */
@@ -28,12 +31,23 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("text/html; charset=utf-8");
 		//response.getWriter().append("업로드가 성공적으로 완료되었습니다.");
-		response.getWriter().append("홍길동");
 		
-		System.out.println(request.getParameter("title") + ", "
-				 + request.getParameter("content"));
+		int category = Integer.parseInt(request.getParameter("category"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String stillcut = request.getParameter("stillcut");
+		String producer = request.getParameter("producer");
+		String memberId = request.getParameter("memberId");
+		
+		BoardService bs = new BoardService();
+		
+		bs.insertBoard(new Board(bs.assignBoardNum(), 
+				memberId, category, title, content, stillcut, producer));
+		
+		response.getWriter().append("홍길동");
 		
 		/*
 		PrintWriter out = response.getWriter();

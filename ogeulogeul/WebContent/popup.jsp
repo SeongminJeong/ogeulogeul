@@ -21,11 +21,11 @@
 		<tr>
 			<td class="pad">
 				<select id="category" onchange="choice();">
-					<option selected="true" value="movie">영화</option>
-					<option value="drama">드라마</option>
-					<option value="book">책</option>
-					<option value="music">음악</option>
-					<option value="cartoon">만화</option>
+					<option selected="true" value="1">영화</option>
+					<option value="2">드라마</option>
+					<option value="3">책</option>
+					<option value="4">음악</option>
+					<option value="5">만화</option>
 				</select>
 			</td>
 			<td colspan="3" id="tdFile" class="pad">
