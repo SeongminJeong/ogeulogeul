@@ -1,9 +1,3 @@
-function choice() {
-	if (document.getElementById("category").value == "movie")
-		document.getElementById("tdFile").innerHTML = "<input type='file'>";
-	else 
-		document.getElementById("tdFile").innerHTML = "";
-}
 
 function music() {
 	//alert(unescape("%EC%95%84%EC%9D%B4%EC%9C%A0+%EC%A2%8B%EC%9D%80%EB%82%A0"));

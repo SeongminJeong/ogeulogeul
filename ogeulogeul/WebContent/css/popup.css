@@ -1,0 +1,20 @@
+	div {
+		font-family: "나눔스퀘어";
+		font-size: 13pt;
+		/*font-weight: lighter;*/
+		/*vertical-align: middle;*/
+	}
+	table {
+		margin: 0 0 0 0;
+	}
+	table a {
+		text-decoration: none;
+		color: black;
+	}
+	table a:visited {
+		color: black;
+	}
+	table .pad {
+		padding-top: 10px;
+	}
+	
