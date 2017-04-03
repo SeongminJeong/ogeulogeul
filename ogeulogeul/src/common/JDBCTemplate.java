@@ -26,7 +26,7 @@ public class JDBCTemplate {
 		}
 		return con;
 	}*/
-	
+
 	//2. driver.properties 파일에서 값을 읽어서 적용하는 경우
 	//static 메소드 내에서는 non-static 메소드를 그냥 사용할 수 없음
 	private static class ReadProperties{
@@ -72,7 +72,7 @@ public class JDBCTemplate {
 		return con;
 	}
 
-	/*
+/*	
 	//3. 톰켓이 제공하는 DBCP(DataBase Connetion Pool)를 이용
 	//web/META-INF/context.xml 파일에 설정됨
 	public static Connection getConnection(){
@@ -143,4 +143,5 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 	}
+	
 }

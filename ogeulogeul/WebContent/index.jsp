@@ -13,28 +13,50 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">
 	$(function() {
+		requestList();
 		//$("#table").css("padding", "10");
 		//$("#innerTable td").css("border", "1px solid white");
 		$("#login").click(function() {
 			location.href = "loginForm.html";
 		});
-	});
-	
-	$(document).ready(function() {
+		
+		/*
+		$('input[type=checkbox]').each(function(){
+			   $(this).wrap("<div>").css({display:"none"});
+			   $(this).parent("div").addClass('check').css({
+			    "background-image": "url('images/678087-heart-128.png')",
+			    width: 34,
+			    height: 34,
+			    cursor: "pointer"
+			   });
+		});
+		
+		$('input[type=checkbox]').filter(":checked").each(function(){
+			   $(this).wrap("<div>").css({display:"none"});
+			   $(this).parent("div").addClass('check').css({
+			    "background-image": "url('images/heart_256x256-32.png')",
+			    width: 34,
+			    height: 34,
+			    cursor: "pointer"
+			   });
+		});
+		*/
+			   
 		$(".fancybox").fancybox({
 			/*
 			openEffect	: 'none',
 			closeEffect	: 'none'
 			*/
 		});
+		
 	});
+
 </script>
 <style type="text/css">
  #div {
     background: url(images/13d71e59547054f229d25f87caba6e23.jpg) no-repeat;
     background-size: cover;
     }
-   
 </style>
 <title>오글</title>
 </head>
@@ -54,63 +76,10 @@
 	<br>
 	<br>
 	<div>
-		<table id="table" width="100%" 
+		<table class="" id="table" width="100%" 
 		 border="1" style="BORDER-COLLAPSE: collapse;border-style:dotted;" bordercolor="white">
-			<tr>
-				<td>
-					<table id="innerTable">
-						<tr>
-							<td id="td">
-								<img src="images/tv[1].png">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p>
-									<!-- <a href="http://www.naver.com" data-fancybox-type="iframe" class="layerIframe">사랑은 돌아오는거야ㅋ</a> -->
-									<a data-fancybox data-src="popup.jsp">사랑은 돌아오는거야</a>
-								</p>
-							</td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<table id="innerTable">
-						<tr>
-							<td id="td">
-								<img src="images/tv[1].png">
-							</td>
-						</tr>
-						<tr>
-							<td><p><a href="">밥 먹을래 나랑 살래</a></p></td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<table id="innerTable">
-						<tr>
-							<td id="td">
-								<img src="images/f01714817750f2b3d22c5ab81dc53ddf[1].png">
-							</td>
-						</tr>
-						<tr>
-							<td><p><a href="">미래에서 기다릴게</a></p></td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<table id="innerTable">
-						<tr>
-							<td id="td">
-								<img src="images/music-headphones-icon-coloring-book-colouring-scallywag-coloring-5aNjee-clipart[1].png">
-							</td>
-						</tr>
-						<tr>
-							<td><p><a href="">사랑해 이 길 함께 걷는 그대여,<br> 굳이 고된 나를 택한 그대여</a></p></td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+		<tbody id="listbody">
+		</tbody>
 			<tr>
 				<td>
 					<table id="innerTable">
