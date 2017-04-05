@@ -1,0 +1,142 @@
+
+.borderround {
+margin-right: 30px;
+border: 1px solid black;
+background: white;
+border-radius:10px;
+padding-top:5px;
+padding-bottom:5px;
+padding-left:15px;
+padding-right:15px;
+float:right;
+font-size: 9pt;
+}
+
+.borderround:hover {
+cursor: crosshair;
+}
+
+#divpop {
+position: absolute;
+/* absolute를 해야 안잘림 */
+left: 0;
+top:0;
+width: 100%;
+height: 100%;
+/*opacity: 0.8;*/
+background-color: rgba(0, 0, 0, 0.9);
+/*display: block;*/
+visibility: hidden;
+/*vertical_align: middle;*/
+
+/*z-index: 10;*/
+/*레이어가 여러 개 있는 경우 순위 정하는 부분 (1순위는 1)*/
+
+}
+
+#divpop div {
+width: 500px;
+height: 500px;
+top:0;
+left:0;
+right:0;
+bottom:0;
+position:absolute;
+margin:auto;
+}
+
+#poptbl a {
+text-decoration: none;
+}
+
+p a:link {
+color: white; text-decoration: none;
+}
+
+a img {
+border: 0;
+}
+
+p a:hover {
+color: white; text-decoration: underline;
+cursor: pointer;
+/*왜 이거 지정 안하면 손가락모양 안나오는지?*/
+}
+
+p a:visited {
+color: white; text-decoration: none;
+}
+
+
+   #table {
+   background: rgba(255, 255, 255, 0.3);
+   font-family: 나눔스퀘어;
+   color: white;
+   font-size: 12pt;
+   }
+    
+   #table td {
+   vertical-align: top;
+   height: 150px;
+   }
+   
+   #innerTable {
+   /*width: 100%;*/
+   height: 100%;
+   
+   }
+   
+   #innerTable td {
+   vertical-align: middle;
+   }
+   
+   #innerTable #td {
+   text-align: right;
+   height: 40px;
+   }
+   
+   #innerTable td p {
+   text-align: center;
+   }
+   
+   #innerTable td a img:hover {
+   /*width: 100%;*/
+   position: relative;
+   animation: eee .1s infinite;
+   }
+   
+   @keyframes eee {
+   0% {left:0;}
+   50% {left:5px;}
+   100% {left:0;}
+   }
+   
+   #innerTable #td img {
+   width: 30px;
+   height: 30px;
+   opacity: 0.7;
+   }
+ 
+	.checkbox-wrap { cursor: pointer; }
+	.checkbox-wrap .check-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/heart_256x256-32.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	.declare-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/vector_325_09-512.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	
+	.checkbox-wrap input[type=checkbox] { display: none; }
+	.checkbox-wrap input[type=checkbox]:checked + .check-icon { 
+		background: url(../images/678087-heart-128.png);
+		background-size: cover;
+	}

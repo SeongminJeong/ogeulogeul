@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>오글 - art and sensitivity</title>
+<link href="/ogeul/css/loginForm.css" rel="stylesheet" type="text/css">
+<!-- <script type="text/javascript" src="js/loginForm.js"></script> -->
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("id").focus();
+	};
+</script>
+<style>
+</style>
+</head>
+<body>
+<form action="/ogeul/login" method="post">
+	<div id="inputarea" style="">
+	<!-- div 태그의 align은 텍스트의 정렬을 지정하는 것임 -->
+		<div align="center" style="">
+			<a href="/ogeul/index.jsp"><img src="/ogeul/images/KakaoTalk_20170316_131033908.png"></a>
+			<table style="margin-top:40px">
+				<tr>
+					<td>
+						<table id="idpass">
+							<tr>
+								<td>ID</td>
+								<td><input type="text" name="memberid"></td>
+							</tr>
+							<tr>
+								<td>PASS</td>
+								<td><input type="password" name="password"></td>
+							</tr>
+						</table>
+					</td>
+					<td style="padding-left:10px" align="center">
+						<input class="button" type="submit" value="V" ><br>
+					</td>
+				</tr>
+			</table>
+			<div align="center" style="margin-top:30px">
+				<a href="findId.html">FIND ID</a> &nbsp; <a href="findpwd.html">FIND PWD</a>
+				 &nbsp; <b><a href="join.html">JOIN</a></b>
+			</div>
+		</div>
+	</div>
+</form>
+</body>
+</html>

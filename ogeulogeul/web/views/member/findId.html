@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 찾기</title>
+<script type="text/javascript" src="/ogeul/js/findId.js"></script>
+<script type="text/javascript" src="/ogeul/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("name").focus();
+
+		$("#email_domain").attr("readonly", false);
+
+		$("#email_select").change(function() {
+			var selectVar = $("#email_select option:selected").val();
+			if (selectVar == 'insertEmail') { // 직접입력
+				$("#email_domain").focus();
+				$("#email_domain").attr("readonly", false);
+				$("#email_domain").val('');
+			} else if (selectVar == 'selectEmail') { // 선택
+				$("#email_domain").attr("readonly", true);
+				$("#email_domain").val('');
+			} else { // 메일 선택
+				$("#email_domain").attr("readonly", true);
+				$("#email_domain").val(selectVar);
+			}
+		});
+	}
+</script>
+<style>
+.button {
+	font-size: 11pt;
+	color: white;
+	font-family: "아리따-돋움(TTF)";
+	background-color: #353535;
+	border-color: white;
+	border-width: 0px;
+	padding: 5px;
+	border-radius: 5px;
+	margin-top: 2px;
+}
+
+.button:hover {
+	cursor: pointer;
+}
+
+div {
+	align: center;
+	width: 500px;
+	height: 300px;
+	border: 1px solid red;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	margin: auto;
+}
+</style>
+</head>
+<body style="font-family: '아리따-돋움(TTF)';">
+	<form action="/ogeul/findid" method="post">
+		<div align="center">
+			<table>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" id="name" name="name"
+						onchange="removeBorder(this);"></td>
+				</tr>
+				<tr>
+					<td>생년월일</td>
+					<td><input type="text" size="4" maxlength="4" name="year"
+						onchange="removeBorder(this);">년 <input type="text"
+						size="2" maxlength="2" name="month" onchange="removeBorder(this);">월
+						<input type="text" size="2" maxlength="2" name="date"
+						onchange="removeBorder(this);">일</td>
+				</tr>
+				<tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="text" id="email_id" name="email_id" size="15">
+						@ <input type="text" id="email_domain" name="email_domain" size="15"> &nbsp; <select
+						name="email_slect" id="email_select">
+							<option value="selectEmail">선택하세요</option>
+							<option value="insertEmail">직접 입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="hamail.net">hamail.net</option>
+							<option value="gmail.com">gmail.com</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right"><input class="button"
+						type="submit" value="아이디 찾기">
+		  <button class="button" type="button" onclick="alert('아이디 찾기를 취소합니다');location.href='loginForm.html';"
+                   >로그인 페이지로 이동</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</body>
+</html>

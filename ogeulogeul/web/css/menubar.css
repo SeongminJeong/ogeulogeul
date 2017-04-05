@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.login {
+		text-align: center;
+		width: 200px;
+		height: 50px;
+		font-size: 16pt;
+		padding-top: 10px;
+		background: orange;
+		float: right;
+		text-shadow: 2px 2px 5px gray;
+		border: 1px solid black;
+	}
