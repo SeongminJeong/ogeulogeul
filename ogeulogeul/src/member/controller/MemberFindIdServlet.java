@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,11 +39,10 @@ public class MemberFindIdServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+/*	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
-
+*/
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -55,26 +55,13 @@ public class MemberFindIdServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2. 응답할 페이지에 대한 컨텐츠타입과 한글에 인코딩처리함
 		//response.setContentType("text/html; charset=utf-8");
-		
 		//3. 전송값 꺼내서 변수에 저장하기
-		String a = request.getParameter("month");
-		String b = request.getParameter("date");
-		System.out.println(a);
-		System.out.println(b);
 		
-
-		if (a.length() == 1) {
-			
-		a = "0" + a;
-		}
-		if (b.length() == 1) {
-			b = "0" + b;
 		
-		} 
 		String name = request.getParameter("name");
-		String date = request.getParameter("year")+a+b;
+		String date = request.getParameter("year")+request.getParameter("month")+request.getParameter("date");
 		String email = request.getParameter("email_id")+"@"+request.getParameter("email_domain");
-		
+	
 		System.out.println(name);
 		System.out.println(date);
 		System.out.println(email);
@@ -82,26 +69,21 @@ public class MemberFindIdServlet extends HttpServlet {
 
 		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
 		java.util.Date birth = null;
-	
-		
+	   
 				try {
 					birth = formatter.parse(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
-
-	
 		System.out.println(birth);
-	
-      java.sql.Date birth2 =new java.sql.Date(birth.getTime());
-      
-      System.out.println(birth2);
 
+		java.sql.Date birth2 =new java.sql.Date(birth.getTime());
+      
+    	
 		//4. 비즈니스 로직 처리용 모델의 로그인 처리용 메소드를 실행함
 		Member member = new MemberService().findId(name,birth2, email);
-	
+		
 	 	RequestDispatcher view = null;
 	/*	System.out.println(loginUser);*/
 		//5. 받은 결과를 가지고, 성공/실패에 대한 뷰 페이지를 내보냄
@@ -114,19 +96,15 @@ public class MemberFindIdServlet extends HttpServlet {
 		//	System.out.println("로그인 완료");
 		
 	//	JOptionPane.showMessageDialog(null, member.getMemberId());
-			
+	
+
 		}else{
-			//response.sendRedirect("views/member/memberError.jsp");
-			
-			//지정하는 뷰 페이지에서만 결과 데이터를 받아서 처리하게 할 경우
-			//대상 뷰로 request 객체에 데이터를 저장하고 포워딩처리함
-			
-			//getRequestDispatcher("상대경로만 사용할 수 있음");
-			//절대경로 사용하면 에러남("/context root 명/대상이름")
+
 			RequestDispatcher rd = 
 					request.getRequestDispatcher("/ogeul/views/member/memberError.jsp");
 			request.setAttribute("message", "로그인 실패");
 			rd.forward(request, response);
+		}
 	}
 	}
-}
+	

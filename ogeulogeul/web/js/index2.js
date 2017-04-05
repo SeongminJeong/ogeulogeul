@@ -17,7 +17,6 @@ function requestList() {
 }
 
 function callbackList(data) {
-	alert(memberId==null);
 	//var cols = new Array("boardNum", "memberId", "likeCount", "category", "uploadDate", "boardWarning", "title", "content", "stillcut", "producer");
 
 	//받은 문자열을 json 객체로 변환함
@@ -39,14 +38,7 @@ function callbackList(data) {
 		var boardNum = jsonArr.list[i].boardNum;
 		var content = decodeURIComponent((jsonArr.list[i].content).replace(Ca, " "));
 		var stillcut = jsonArr.list[i].stillcut;
-		var like_declare = "<label class='checkbox-wrap'>"
-			+ "<input type='checkbox' "
-			+ "onclick='like(" + jsonArr.list[i].category + ", " + boardNum + ", " + jsonArr.list[i].likeCount + ");' "
-			+ isChecked + "><i class='check-icon'></i></label>"
-			+ "<a data-fancybox data-src='declare.jsp?"
-			+ "memberId=" + memberId + "&"
-			+ "boardNum=" + boardNum + "'>"
-			+ "<i class='declare-icon'></i></a>";
+		var like_declare = "";
 		
 		$.ajax({
 			url: "BoardLikeServlet",
@@ -62,8 +54,17 @@ function callbackList(data) {
 				}
 		});
 		
+		like_declare = "<label class='checkbox-wrap'>"
+			+ "<input type='checkbox' "
+			+ "onclick='like(" + jsonArr.list[i].category + ", " + boardNum + ", " + jsonArr.list[i].likeCount + ");' "
+			+ isChecked + "><i class='check-icon'></i></label>"
+			+ "<a data-fancybox data-src='declare.jsp?"
+			+ "memberId=" + memberId + "&"
+			+ "boardNum=" + boardNum + "'>"
+			+ "<i class='declare-icon'></i></a>";
+		
 		if (jsonArr.list[i].category == "1") {
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
 				+ (memberId==null ? "" : like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ " <img src='images/f01714817750f2b3d22c5ab81dc53ddf[1].png'></td></tr><tr>"
@@ -83,7 +84,7 @@ function callbackList(data) {
 		}
 
 		else if (jsonArr.list[i].category == "2")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
 				+ (memberId==null ? "" : like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/tv[1].png'></td></tr>"
@@ -93,7 +94,7 @@ function callbackList(data) {
 				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "3")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
 				+ (memberId==null ? "" : like_declare)
 				+ "<p id='p" + boardNum + "'>"+ jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/5020-200[1].png'></td></tr>"
@@ -104,7 +105,7 @@ function callbackList(data) {
 				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "4")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
 				+ (memberId==null ? "" : like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/music-headphones-icon-coloring-book-colouring-scallywag-coloring-5aNjee-clipart[1].png'></td></tr>"
@@ -115,7 +116,7 @@ function callbackList(data) {
 				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "5")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+			td.innerHTML = " <table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
 				+ (memberId==null ? "" : like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/tv[1].png'></td></tr>"

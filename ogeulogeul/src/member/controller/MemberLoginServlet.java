@@ -35,7 +35,7 @@ public class MemberLoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				//System.out.println("LoginServlet 의 doPost() 연결 작동됨.");
+				System.out.println("LoginServlet 의 doPost() 연결 작동됨.");
 				
 				//1. 전송값에 한글이 있을 경우, 인코딩처리함
 				//request.setCharacterEncoding("utf-8");

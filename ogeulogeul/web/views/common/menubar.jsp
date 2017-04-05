@@ -23,6 +23,7 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/ogeul/js/menubar.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
 <style>
@@ -93,14 +94,14 @@ margin-top: 0;
                %>
                   <li><a href="/ogeul/views/member/join.html"
                      style="text-align: center">JOIN</a></li>
-                  <li><a href="/ogeul/views/member/loginForm.html"
+                 <li><a href="javascript:popupOpen();"
                      style="text-align: center">LOG IN</a></li>
                <%
                   }else{  //로그인 되었다면
                %>
-                  <li><a style="text-align:center; color: white;"><%= loginUser.getName() %> 님</a></li>
-                  <li><a data-fancybox data-src="popup.jsp?memberId=<%=loginUser.getMemberId() %>" style="text-align: center">
-                  	게시글 등록</a></li>
+                  <li><a data-fancybox data-src="/ogeul/views/member/memberDetailView.jsp?" style="text-align:center; color: white"; ><%= loginUser.getName() %> 님</a></li>
+                  <li><a href="#"
+                     style="text-align: center">게시글 등록</a></li>
                    <li class="dropdown"><a class="dropdown-toggle"
                      data-toggle="dropdown" href="#">나만의 OGEUL<span class="caret"></span></a>
                      <ul class="dropdown-menu">
@@ -125,49 +126,44 @@ margin-top: 0;
       </nav>
 
 
-      <!-- 
+		<!-- 
 모바일 용 -->
-      <nav
-         class="navbar navbar-fixed-top col-xs-12 hidden-md hidden-sm hidden-lg">
- 
-         <div class="container-fluid ">
-                <ul class="nav navbar-nav">
-               <%
-                  if(loginUser == null){  //로그인하지 않았다면
-               %>
-                  <li><a href="/ogeul/views/member/join.html"
-                     style="text-align: center">JOIN</a></li>
-                  <li><a href="/ogeul/views/member/loginForm.html"
-                     style="text-align: center">LOG IN</a></li>
-               <%
-                  }else{  //로그인 되었다면
-               %>
-                  <li><a style="text-align:center; color: white;"><%= loginUser.getName() %> 님</a></li>
-                  <li><a href="#"
-                     style="text-align: center">게시글 등록</a></li>
-                   <li class="dropdown"><a class="dropdown-toggle"
-                     data-toggle="dropdown" href="#">나만의 OGEUL<span class="caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">너만의 OGEUL</a></li>
-                        </ul></li>
-                         <li><a href="/ogeul/logout"
-                     style="text-align: center">LOG OUT</a></li>
-                  <li class="dropdown"><a class="dropdown-toggle"
-                     data-toggle="dropdown" href="#">CATEGORY <span class="caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">MOVIE</a></li>
-                        <li><a href="#">DRAMA</a></li>
-                        <li><a href="#">COMICS</a></li>
-                        <li><a href="#">POET</a></li>
-                        <li><a href="#">BOOK</a></li>
-                        <li><a href="#">TOP8</a></li>
-                     </ul></li>
-               <% } %>   
-               </ul>
-           
-         </div>
+		<nav
+			class="navbar navbar-fixed-top col-xs-12 hidden-md hidden-sm hidden-lg">
+			<div class="container-fluid col-xs-12 hidden-md hidden-sm hidden-lg">
+				<div>
+					<ul class="nav navbar-nav">
+						<li><a href="#" style="text-align: center">JOIN</a></li>
 
-      </nav>
-   </header>
+					</ul>
+				</div>
+			</div>
+
+			<div class="container-fluid col-xs-12 hidden-md hidden-sm hidden-lg">
+				<div>
+					<ul class="nav navbar-nav">
+						<li><a href="#" style="text-align: center">LOG IN</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="container-fluid col-xs-12 hidden-md hidden-sm hidden-lg">
+				<div>
+					<ul class="nav navbar-nav">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">= <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">MOVIE</a></li>
+								<li><a href="#">DRAMA</a></li>
+								<li><a href="#">COMICS</a></li>
+								<li><a href="#">POET</a></li>
+								<li><a href="#">BOOK</a></li>
+								<li><a href="#">TOP8</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+
+		</nav>
+	</header>
 </body>
 </html>

@@ -18,7 +18,7 @@
 <script type="text/javascript">
 var memberId = null;
 <%
-if(loginUser_index2 != null){  //로그인하지 않았다면
+if(loginUser_index2 != null){  //로그인 했다면
 %>
 memberId = "<%=loginUser_index2.getMemberId() %>";
 <%}%>

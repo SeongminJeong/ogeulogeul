@@ -47,26 +47,25 @@ public class MemberInsertServlet extends HttpServlet {
 		String memberId = request.getParameter("userid");
 		String password = request.getParameter("pwd");
 		String name = request.getParameter("username");
-		
-		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
-		java.util.Date birth2 = null;
-	
-		
-				try {
-					birth2 = formatter.parse(request.getParameter("birth"));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+		String date = request.getParameter("birth");
+		   java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
+		      java.util.Date birth2 = null;
+		   
+		      
+		            try {
+		               birth2 = formatter.parse(date);
+		            } catch (ParseException e) {
+		               // TODO Auto-generated catch block
+		               e.printStackTrace();
+		            }
+		         
 
-	
-		System.out.println(birth2);
-	
-      java.sql.Date birth =new java.sql.Date(birth2.getTime());
-      
-      System.out.println(birth);
-
+		   
+		      System.out.println(birth2);
+		   
+		      java.sql.Date birth =new java.sql.Date(birth2.getTime());
+		      
+		      System.out.println(birth);
 		String face = request.getParameter("face");
 		String gender = request.getParameter("gender");
 		String email = request.getParameter("email");

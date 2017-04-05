@@ -42,8 +42,6 @@ public class MemberDao {
 				System.out.println(member);
 			}
 			
-			commit(con);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -101,11 +99,9 @@ System.out.println(member);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member member = null;
-		System.out.println(name);
-		System.out.println(id);
+		System.out.println(name +"," + id + "," + phone);
 		String query = "select * from member where " + 
 				"name = ? and member_id = ? and phone = ?" ;
-		System.out.println(phone);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, name);
@@ -165,6 +161,84 @@ System.out.println(member);
 			close(pstmt);
 		}
 		
+		return result;
+	}
+	
+	public int updateMember(Connection con, Member member) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update member set password = ?, "
+				+ "email = ?, phone = ?  where member_id = ?";		
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getEmail());
+			pstmt.setString(3, member.getPhone());	
+			pstmt.setString(4, member.getMemberId());			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(Connection con, String uid) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from member where member_id = ?";		
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, uid);						
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateMember(Member member) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int result = new MemberDao().updateMember(con, member);
+		
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		
+		close(con);
+
+		return result;
+	}
+
+	public int deleteMember(String uid) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int result = new MemberDao().deleteMember(con, uid);
+		
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		
+		close(con);
+
 		return result;
 	}
 }

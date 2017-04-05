@@ -280,6 +280,8 @@ public class BoardDao {
 			pstmt.setInt(3, boardNum);
 			if (pstmt.executeUpdate() > 0)
 				System.out.println("movie/drama/book/music/comic 테이블 변경 성공 ");
+
+			commit(conn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
