@@ -1,5 +1,6 @@
 var gJsonRows;
-var isChecked;
+var favoriteIsChecked;
+var likeIsChecked;
 var Ca = /\+/g;
 // /[변경될 문자열 패턴]/g 에서 g는 모든 문자열 패턴을 검색하라는 의미
 
@@ -38,7 +39,8 @@ function callbackList(data) {
 		var boardNum = jsonArr.list[i].boardNum;
 		var content = decodeURIComponent((jsonArr.list[i].content).replace(Ca, " "));
 		var stillcut = jsonArr.list[i].stillcut;
-		var like_declare = "";
+		var favoriteMemberId = jsonArr.list[i].memberId;
+		var favorite_like_declare = "";
 		
 		$.ajax({
 			url: "BoardLikeServlet",
@@ -48,16 +50,34 @@ function callbackList(data) {
 				async : false,
 				success : function(data) {
 					if (data == "like")
-						isChecked = "checked";
+						likeIsChecked = "checked";
 					else
-						isChecked = "";
+						likeIsChecked = "";
 				}
 		});
 		
-		like_declare = "<label class='checkbox-wrap'>"
+		$.ajax({
+			url: "MemberFavoriteServlet",
+			data : { memberId : memberId,
+				favoriteMemberId : favoriteMemberId,
+				flag : 0},
+				async : false,
+				success : function(data) {
+					if (data == "like")
+						favoriteIsChecked = "checked";
+					else
+						favoriteIsChecked = "";
+				}
+		});
+		
+		favorite_like_declare = "<label class='checkbox-wrap'>"
+			+ "<input type='checkbox' "
+			+ "onclick='favorite(this, \'" + favoriteMemberId + "\');' "
+			+ favoriteIsChecked + "><i class='favorite-icon'></i></label>"
+			+ "<label class='checkbox-wrap'>"
 			+ "<input type='checkbox' "
 			+ "onclick='like(" + jsonArr.list[i].category + ", " + boardNum + ", " + jsonArr.list[i].likeCount + ");' "
-			+ isChecked + "><i class='check-icon'></i></label>"
+			+ likeIsChecked + "><i class='check-icon'></i></label>"
 			+ "<a data-fancybox data-src='declare.jsp?"
 			+ "memberId=" + memberId + "&"
 			+ "boardNum=" + boardNum + "'>"
@@ -65,7 +85,7 @@ function callbackList(data) {
 		
 		if (jsonArr.list[i].category == "1") {
 			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : like_declare)
+				+ (memberId==null ? "" : favorite_like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ " <img src='images/f01714817750f2b3d22c5ab81dc53ddf[1].png'></td></tr><tr>"
 				+ "<td><p><a data-fancybox data-src='"
@@ -85,7 +105,7 @@ function callbackList(data) {
 
 		else if (jsonArr.list[i].category == "2")
 			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : like_declare)
+				+ (memberId==null ? "" : favorite_like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/tv[1].png'></td></tr>"
 				+ "<tr><td><p><a data-fancybox data-src='"
@@ -95,7 +115,7 @@ function callbackList(data) {
 		
 		else if (jsonArr.list[i].category == "3")
 			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : like_declare)
+				+ (memberId==null ? "" : favorite_like_declare)
 				+ "<p id='p" + boardNum + "'>"+ jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/5020-200[1].png'></td></tr>"
 				+ "<tr><td><p><a data-fancybox data-src='"
@@ -106,7 +126,7 @@ function callbackList(data) {
 		
 		else if (jsonArr.list[i].category == "4")
 			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : like_declare)
+				+ (memberId==null ? "" : favorite_like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/music-headphones-icon-coloring-book-colouring-scallywag-coloring-5aNjee-clipart[1].png'></td></tr>"
 				+ "<tr><td><p><a data-fancybox data-src='" +
@@ -117,7 +137,7 @@ function callbackList(data) {
 		
 		else if (jsonArr.list[i].category == "5")
 			td.innerHTML = " <table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : like_declare)
+				+ (memberId==null ? "" : favorite_like_declare)
 				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
 				+ "<img src='images/tv[1].png'></td></tr>"
 				+ "<tr><td><p><a data-fancybox data-src=''>"
@@ -151,6 +171,31 @@ function callbackList(data) {
 function music() {
 	//alert(unescape("%EC%95%84%EC%9D%B4%EC%9C%A0+%EC%A2%8B%EC%9D%80%EB%82%A0"));
 	window.open("http://music.naver.com/search/search.nhn?query=" + escape("아이유+좋은날") + "&x=0&y=0", "_blank");
+}
+
+function favorite(obj, favoriteMemberId) {
+	
+	alert(memberId + ", " + favoriteMemberId);
+	
+	/*
+	if (confirm(favoriteMemberId + "님을 즐겨찾는 오글러"
+			+ (obj.checked == false ? "로 추가하시겠습니까?" : "에서 삭제하시겠습니까?") ) == true)
+		$.ajax({
+			url: "MemberFavoriteServlet",
+			data: { memberId : memberId,
+				favoriteMemberId : favoriteMemberId,
+				flag : 1
+				},
+			success: function(data) {
+				if (data == "like") {
+					alert("좋아함 ");
+				}
+				else if (data == "unlike") {
+					alert("좋아요 취소 ");
+				}
+			}
+		});
+		*/
 }
 
 function like(category, boardNum, likeCount) {

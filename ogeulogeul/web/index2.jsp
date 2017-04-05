@@ -20,7 +20,7 @@ var memberId = null;
 <%
 if(loginUser_index2 != null){  //로그인 했다면
 %>
-memberId = "<%=loginUser_index2.getMemberId() %>";
+memberId = '<%=loginUser_index2.getMemberId() %>';
 <%}%>
 	
 	$(function() {

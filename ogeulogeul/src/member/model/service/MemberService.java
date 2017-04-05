@@ -3,7 +3,7 @@ import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
-
+import board.model.dao.BoardDao;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 
@@ -75,6 +75,39 @@ public class MemberService {
       close(con);
 
       return result;
+   }
+   
+	public int isFavorite (String memberId, String favoriteMemberId) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().isFavorite(conn, memberId, favoriteMemberId) ;
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		   
+		close(conn);
+		
+		return result;
+	}
+	
+   
+   public int memberFavorite(String memberId, String favoriteMemberId) {
+
+	   Connection con = getConnection();
+	   
+	   int result = new MemberDao().memberFavorite(memberId, favoriteMemberId, con);
+	   
+	   if(result > 0)
+		   commit(con);
+	   else
+		   rollback(con);
+	   
+	   close(con);
+
+	   return result;
    }
 
 }

@@ -241,4 +241,90 @@ System.out.println(member);
 
 		return result;
 	}
+	
+	public int isFavorite(Connection conn, String memberId, String favoriteMemberId) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		String query = "select * from FAVORITE_MEMBER "
+				+ "where member_id = ? and favorite_member_id = ?";
+		
+		try {
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, favoriteMemberId);
+			
+			if ((rs = pstmt.executeQuery()).next())
+				result = 1;
+			else
+				result = -1;
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+		
+		return result;
+	}
+	
+	public int memberFavorite(String memberId, String favoriteMemberId, Connection conn) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int likeCount = 1;
+		
+		String query = "select * from FAVORITE_MEMBER "
+				+ "where member_id = ? and favorite_member_id = ?";
+
+		String query_delete = "delete from FAVORITE_MEMBER "
+				+ "where member_id = ? and favorite_member_id = ?";
+		
+		String query_insert = "insert into FAVORITE_MEMBER "
+				+ "values (?, ?)";
+		
+		try {
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, favoriteMemberId);
+			
+			if ((rs = pstmt.executeQuery()).next()) {
+				
+				likeCount = -1;
+				pstmt = conn.prepareStatement(query_delete);
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, favoriteMemberId);
+				
+				if (pstmt.executeUpdate() > 0)
+					result = -1;
+				
+				close(pstmt);
+			}
+			
+			else {
+				pstmt = conn.prepareStatement(query_insert);
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, favoriteMemberId);
+				if (pstmt.executeUpdate() > 0)
+					result = 1;
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 }

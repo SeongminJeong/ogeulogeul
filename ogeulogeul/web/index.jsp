@@ -8,6 +8,7 @@
 <title>Ogeul Project</title>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <style type="text/css">
+
 .page {
   height : 500px;  
 }
