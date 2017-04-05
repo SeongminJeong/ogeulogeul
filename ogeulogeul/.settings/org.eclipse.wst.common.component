@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="ogeulogeul">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/web"/>
         <property name="java-output-path" value="/ogeulogeul/build/classes"/>
-        <property name="context-root" value="ogeul"/>
+        <property name="context-root" value="ogeulogeul"/>
     </wb-module>
 </project-modules>

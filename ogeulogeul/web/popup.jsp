@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +8,9 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/popup.js"> </script>
 <script>
+var memberId = '<%=request.getParameter("memberId")%>';
 	$(function() {
+		alert("memberID = " + memberId);
 		$("form").submit(function() {
 			/*
 			window.parent.location.href = "index.jsp";
@@ -20,7 +23,7 @@
 </head>
 <body>
 <div>
-<form action="/ogeulogeul/BoardInsertServlet" method="post" enctype="multipart/form-data">
+<form action="BoardInsertServlet" method="post" enctype="multipart/form-data">
 	<table width="100%" border="1">
 	<colgroup>
 		<col width="25%" />
@@ -58,7 +61,7 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center" class="pad">
-				<input type="hidden" name="memberId" value="test">
+				<input type="hidden" name="memberId" value='<%=request.getParameter("memberId")%>'>
 				<!--<button id="ok" onclick="sendOgeul();">완료</button>-->
 				<input type="submit" id="ok" value="완료 ">
 				<button onclick="popupClose();">취소</button>

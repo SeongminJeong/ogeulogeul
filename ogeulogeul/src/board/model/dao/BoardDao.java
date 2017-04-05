@@ -1,5 +1,7 @@
 package board.model.dao;
 
+import static common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -13,7 +15,6 @@ import java.util.List;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-import static common.JDBCTemplate.*;
 import board.model.vo.Board;
 
 public class BoardDao {
@@ -69,6 +70,8 @@ public class BoardDao {
 			close(stmt);
 			close(conn);
 		}
+
+		commit(conn);
 		
 		return boardNum;
 	}
@@ -175,6 +178,8 @@ public class BoardDao {
 			close(stmt);
 			close(pstmt);
 		}
+
+		commit(conn);
 		
 		return result;
 	}
@@ -207,6 +212,9 @@ public class BoardDao {
 			else
 				result = -1;
 				
+			commit(conn);
+			
+			
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

@@ -69,13 +69,13 @@ function sendOgeul() {
 		producer = document.getElementById("producer").value;
 	
 	$.ajax({
-		url: "/ogeulogeul/BoardInsertServlet",
+		url: "/ogeul/BoardInsertServlet",
 		data: { category : document.getElementById("category").value,
 			title : document.getElementById('title').value,
 			content : document.getElementById('content').value,
 			stillcut : stillcut,
 			producer : producer,
-			memberId : "test"},
+			memberId : memberId},
 		type : "post",
 		//timeout: 8000,
 		success: function(data) {

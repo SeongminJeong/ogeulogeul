@@ -1,12 +1,12 @@
 package board.model.service;
 
+import static common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.List;
 
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
-
-import static common.JDBCTemplate.*;
 
 public class BoardService {
 
@@ -31,6 +31,7 @@ public class BoardService {
 	}
 
 	public int insertBoard(Board b) {
+
 		Connection conn = getConnection();
 		int result = new BoardDao().insertBoard(conn, b);
 		if(result > 0) commit(conn);

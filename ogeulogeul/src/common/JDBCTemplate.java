@@ -7,12 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
 public class JDBCTemplate {
-	
 	//1. 직접 값을 지정한 경우
 	/*public static Connection getConnection() {
 		Connection con = null;
@@ -26,7 +22,7 @@ public class JDBCTemplate {
 		}
 		return con;
 	}*/
-
+	
 	//2. driver.properties 파일에서 값을 읽어서 적용하는 경우
 	//static 메소드 내에서는 non-static 메소드를 그냥 사용할 수 없음
 	private static class ReadProperties{
@@ -50,7 +46,6 @@ public class JDBCTemplate {
 		}
 	}
 	
-	
 	public static Connection getConnection(){
 		Connection con = null;
 		
@@ -72,8 +67,7 @@ public class JDBCTemplate {
 		return con;
 	}
 
-/*	
-	//3. 톰켓이 제공하는 DBCP(DataBase Connetion Pool)를 이용
+	/*//3. 톰켓이 제공하는 DBCP(DataBase Connetion Pool)를 이용
 	//web/META-INF/context.xml 파일에 설정됨
 	public static Connection getConnection(){
 		Connection con = null;
@@ -115,14 +109,11 @@ public class JDBCTemplate {
 	}
 
 	public static void close(ResultSet rset) {
-		if (rset == null) ;
-		else {
-			try {
-				if(!rset.isClosed())
-					rset.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			if(!rset.isClosed())
+				rset.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -143,5 +134,4 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 	}
-	
 }

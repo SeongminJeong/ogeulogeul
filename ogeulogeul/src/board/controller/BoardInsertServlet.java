@@ -1,6 +1,5 @@
 package board.controller;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,11 +53,11 @@ public class BoardInsertServlet extends HttpServlet {
 			// 웹서버 컨테이너 경로 추출함
 			String root = request.getSession()
 					.getServletContext().getRealPath("/");
-			String root_ogeul =  "/Users/jiseung/git/ogeulogeul/ogeulogeul/WebContent/";
+			String root_ogeul =  "E:/Dev/java/1_JAVA/1_JAVA/ee_workspace/ogeulProject/web/";
 
 			// 파일 저장 경로(ex : web/board_uploadFiles/) 정함
 			//String savePath = root + "board_uploadFiles/";
-			String savePath = root_ogeul + "board_uploadFiles/";
+			String savePath = root + "board_uploadFiles/";
 			System.out.println(savePath);
 
 			try {
@@ -131,6 +130,7 @@ public class BoardInsertServlet extends HttpServlet {
 
 			// 다른 전송값들 추출하기
 			String memberId = multiRequest.getParameter("memberId");
+			System.out.println("memberId : " + memberId);
 			int category = Integer.parseInt(multiRequest.getParameter("category"));
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
@@ -140,7 +140,7 @@ public class BoardInsertServlet extends HttpServlet {
 			String producer = multiRequest.getParameter("producer");
 
 			BoardService bs = new BoardService();
-			
+
 			if (bs.insertBoard(new Board(bs.assignBoardNum(), 
 					memberId, category, title, content, stillcut, producer)) > 0) {
 				response.getWriter().append(
@@ -150,7 +150,7 @@ public class BoardInsertServlet extends HttpServlet {
 			}
 			else
 				response.getWriter().append("<script>alert('업로드 실패! ');</script>");
-		
+
 			/*
 			String answer = "홍길동 ";
 			int category = Integer.parseInt(request.getParameter("category"));

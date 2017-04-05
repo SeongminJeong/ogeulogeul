@@ -7,26 +7,27 @@ function confirmNull() {
 		if (input[i].getAttribute("type", "text") && input[i].value == "")
 			input[i].style.borderColor = "red";
 	
-	if (document.getElementById("name").value=="") {
+	
+	if (document.getElementById("name").value=="" && document.getElementById("name").value == null) {
 			alert("이름을 입력해주세요");
 			document.getElementById("name").focus();
 			return;
 			
 	}
 	
-	else if (document.getElementById("id").value=="") {
+	else if (document.getElementById("id").value=="" && document.getElementById("id").value == null) {
 		alert("아이디를 입력해주세요");
 		document.getElementById("id").focus();
 		return;
 	}	
 
-	else if (document.getElementById("id").value=="") {
+	else if (document.getElementById("password").value=="" && document.getElementById("password").value == null) {
 		alert("패스워드를 입력해주세요");
 		document.getElementById("password").focus();
 		return;
 	}
 
-	else if (document.getElementById("id").value=="") {
+	else if (document.getElementById("password2").value=="" && document.getElementById("password2").value == null) {
 		alert("패스워드 확인을 입력해주세요");
 		document.getElementById("password2").focus();
 		return;

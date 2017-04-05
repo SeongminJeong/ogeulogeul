@@ -4,132 +4,145 @@ import java.sql.Date;
 
 public class Member implements java.io.Serializable {
 
-	private String memberId;
-	private String password;
-	private String name;
-	private String face;
-	private String email;
-	private String phone;
-	private String memo;
-	private int memberWarning;
-	private Date birth;
-	
-	
-	public Member(){}
+   private String memberId;
+   private String password;
+   private String name;
+   private Date birth;
+   private String face;
+   private String email;
+   private String phone;
+   private int memberWarning;
+   private String memo;
+   private String gender;
+   
+   
+   public Member(){}
+
+   
+   public Member(String memberId, String password, String name, Date birth, String gender, String face,  String email, String phone, 
+         int memberWarning, String memo) {
+      super();
+      this.memberId = memberId;
+      this.password = password;
+      this.name = name;
+      this.birth = birth;
+      this.gender = gender;
+      this.face = face;
+      this.email = email;
+      this.phone = phone;
+      this.memberWarning = memberWarning;
+      this.memo = memo;
+
+   }
 
 
-	public Member(String memberId, String password, String name, String face, String email, String phone, String memo,
-			int memberWarning, Date birth) {
-		super();
-		this.memberId = memberId;
-		this.password = password;
-		this.name = name;
-		this.face = face;
-		this.email = email;
-		this.phone = phone;
-		this.memo = memo;
-		this.memberWarning = memberWarning;
-		this.birth = birth;
-	}
+   public String getMemberId() {
+      return memberId;
+   }
 
 
-	public String getMemberId() {
-		return memberId;
-	}
+   public void setMemberId(String memberId) {
+      this.memberId = memberId;
+   }
 
 
-	public String getPassword() {
-		return password;
-	}
+   public String getPassword() {
+      return password;
+   }
 
 
-	public String getName() {
-		return name;
-	}
+   public void setPassword(String password) {
+      this.password = password;
+   }
 
 
-	public String getFace() {
-		return face;
-	}
+   public String getName() {
+      return name;
+   }
 
 
-	public String getEmail() {
-		return email;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
 
-	public String getPhone() {
-		return phone;
-	}
+   public Date getBirth() {
+      return birth;
+   }
 
 
-	public String getMemo() {
-		return memo;
-	}
+   public void setBirth(Date birth) {
+      this.birth = birth;
+   }
 
 
-	public int getMemberWarning() {
-		return memberWarning;
-	}
+   public String getFace() {
+      return face;
+   }
 
 
-	public Date getBirth() {
-		return birth;
-	}
+   public void setFace(String face) {
+      this.face = face;
+   }
 
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+   public String getEmail() {
+      return email;
+   }
 
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public String getPhone() {
+      return phone;
+   }
 
 
-	public void setFace(String face) {
-		this.face = face;
-	}
+   public void setPhone(String phone) {
+      this.phone = phone;
+   }
 
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+   public int getMemberWarning() {
+      return memberWarning;
+   }
 
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+   public void setMemberWarning(int memberWarning) {
+      this.memberWarning = memberWarning;
+   }
 
 
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
+   public String getMemo() {
+      return memo;
+   }
 
 
-	public void setMemberWarning(int memberWarning) {
-		this.memberWarning = memberWarning;
-	}
+   public void setMemo(String memo) {
+      this.memo = memo;
+   }
 
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
+   public String getGender() {
+      return gender;
+   }
 
 
-	@Override
-	public String toString() {
-		return this.memberId + ", " + this.password  + ", " + this.name  + ", " + this.face  + ", " +  this.email 
-				 + ", " +  this.phone  + ", " + this.memo  + ", " + this.memberWarning  + ", " +  this.birth;
-	}
-	
-	
-	
-	
+   public void setGender(String gender) {
+      this.gender = gender;
+   }
+
+
+   @Override
+   public String toString() {
+      return this.memberId + ", " + this.password  + ", " + this.name  + ", " + this.birth + ", " + this.face  + ", " +  this.email 
+             + ", " +  this.phone  + ", " + this.memberWarning  + ", " + this.memo  + ", " +  this.gender;
+   }
+   
+   
+   
+   
 }

@@ -5,7 +5,7 @@ var Ca = /\+/g;
 
 function requestList() {
 	$.ajax({
-		url: "/ogeulogeul/BoardListServlet",
+		url: "/ogeul/BoardListServlet",
 		dataType: "json",
 		success: function(data) {
 			callbackList(data);
@@ -41,7 +41,7 @@ function callbackList(data) {
 		var stillcut = jsonArr.list[i].stillcut;
 		
 		$.ajax({
-			url: "/ogeulogeul/BoardLikeServlet",
+			url: "/ogeul/BoardLikeServlet",
 			data : { memberId : "test",
 				boardNum : boardNum,
 				flag : 0},
@@ -66,11 +66,11 @@ function callbackList(data) {
 				+ "http://movie.naver.com/movie/search/result.nhn?query="
 				+ encodeURI(decodeURIComponent(jsonArr.list[i].title))
 				+ "&section=all&ie=utf8'>"
-				+ (content == " " ? "<img src='/ogeulogeul/board_uploadFiles/" + stillcut + "'>" : content)
+				+ (content == " " ? "<img src='/ogeul/board_uploadFiles/" + stillcut + "'>" : content)
 				+ "</a></p></td></tr></table>";
 			
 			if (content != " " && stillcut != null) {
-				td.children[0].children[0].children[0].nextSibling.style.background = "url(/ogeulogeul/board_uploadFiles/" + stillcut + ")";
+				td.children[0].children[0].children[0].nextSibling.style.background = "url(/ogeul/board_uploadFiles/" + stillcut + ")";
 				td.style.backgroundSize = "cover";
 			}
 
@@ -162,7 +162,7 @@ function music() {
 function like(obj, category, boardNum, likeCount) {
 	
 	$.ajax({
-		url: "/ogeulogeul/BoardLikeServlet",
+		url: "/ogeul/BoardLikeServlet",
 		data: { memberId : "test",
 			boardNum : boardNum,
 			category : category,
