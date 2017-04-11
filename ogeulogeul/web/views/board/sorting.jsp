@@ -22,10 +22,10 @@ String type = request.getParameter("type");
 
       <div style="display:inline">
          <div class="menu">
-         <%@ include file="/views/common/menubar.jsp"%>
+         <%@ include file="../common/menubar.jsp"%>
          </div>
          <div class="page">
-            <%@ include file="/views/common/page.jsp"%>
+            <%@ include file="../common/page.jsp"%>
          </div>
          <div>
             <jsp:include page="sorting2.jsp" >

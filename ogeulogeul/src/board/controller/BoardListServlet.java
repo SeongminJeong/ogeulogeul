@@ -37,11 +37,29 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		List<Board> boardList =  new BoardService().selectList();
+		List<Board> boardList = null;
 		String stillcut, content, producer;
 		
 		JSONObject json = new JSONObject();
 		JSONArray jarr = new JSONArray();
+		
+		System.out.println(request.getParameter("flag"));
+		
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		String memberId = request.getParameter("memberId");
+		
+		if (flag == 0)
+			boardList =  new BoardService().selectAllList();
+
+		else if (flag == 1)
+			boardList =  new BoardService().selectMemberBoardList(memberId);
+		
+		else if (flag == 2)
+			boardList =  new BoardService().selectLikedBoardList(memberId);
+		
+		else if (flag == 3) {
+			boardList =  new BoardService().selectSortedBoardList(request.getParameter("type"));
+		}
 		
 		for(Board b : boardList){
 			//한 개의 객체 정보를 json 객체에 저장함

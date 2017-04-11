@@ -1,4 +1,8 @@
 
+span {
+	background-color: black;
+}
+
 .borderround {
 margin-right: 30px;
 border: 1px solid black;
@@ -49,59 +53,80 @@ margin:auto;
 text-decoration: none;
 }
 
-p a:link {
-color: white; text-decoration: none;
-}
-
 a img {
 border: 0;
 }
 
-p a:hover {
+a {
+color: white; text-decoration: none;
+}
+
+a:hover {
 color: white; text-decoration: underline;
 cursor: pointer;
 /*왜 이거 지정 안하면 손가락모양 안나오는지?*/
 }
 
-p a:visited {
+a:visited {
 color: white; text-decoration: none;
 }
 
-
+ 
    #table {
+   width: 100%;
    background: rgba(255, 255, 255, 0.3);
    font-family: 나눔스퀘어;
    color: white;
-   font-size: 12pt;
+   font-size: 12pt
    }
-    
+   
    #table td {
-   vertical-align: top;
-   height: 150px;
+   border: 1px solid white;
+   width: 350px;
    }
    
    #innerTable {
-   width: 100%;
+   margin: 10px;
+   border: 1px solid white;
+   /*width: 90%;*/
   /* height: 100%;*/
      
    }
    
    #innerTable td {
+   min-width: 350px;
+   display:block;
    vertical-align: middle;
    }
-   
-   #innerTable #td {
-   text-align: right;
+      
+   #innerTable #td{
    height: 40px;
+   /*border: 1px solid white;*/
+   }
+   
+   #innerTable .right {
+   text-align: right;
+   }
+   
+   #innerTable #td2 {
+   vertical-align: middle;
+   height: 300px;
+   min-width: 300px;
+   border: 1px solid white;
    }
    
    #innerTable td p {
    text-align: center;
    }
    
-   #innerTable td a img:hover {
-   /*width: 100%;*/
+   #innerTable td p a img {
    position: relative;
+   z-index: 1;
+   max-height: 300px;
+   }
+   
+   #innerTable td p a img:hover {
+   /*width: 100%;*/
    animation: eee .1s infinite;
    }
    
@@ -126,7 +151,7 @@ color: white; text-decoration: none;
 		background-size: cover;
 		vertical-align: middle;
 	}
-	.checkbox-wrap .check-icon  { 
+	.checkbox-wrap .like-icon  { 
 		display: inline-block; 
 		width: 18px; 
 		height: 18px;
@@ -148,7 +173,17 @@ color: white; text-decoration: none;
 		background: url(../images/star_PNG1594.png);
 		background-size: cover;
 	}
-	.checkbox-wrap input[type=checkbox]:checked + .check-icon { 
+	.checkbox-wrap input[type=checkbox]:checked + .like-icon { 
 		background: url(../images/678087-heart-128.png);
 		background-size: cover;
 	}
+	
+	.delete-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/icon-nav-close.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	

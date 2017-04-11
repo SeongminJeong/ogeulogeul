@@ -13,7 +13,7 @@
 </script>
 </head>
 <body>
-<div style="text-align:center;">
+<div style="text-align:center;height:500px;overflow:auto">
 <h2>나쁜 오글러 신고하기 </h2>
 <p>허위 신고 3회 이상인 경우 경고 횟수가 1회 증가됩니다 </p>
 <p>신고가 정상 접수되면 해당 회원의 경고 횟수가 1회 증가되며,</p>

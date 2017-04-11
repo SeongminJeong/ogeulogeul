@@ -21,7 +21,7 @@
 </head>
 <body>
 <div style="height:500px;overflow:auto;">
-<table align="center">
+<table align="center" style="margin-top:15px">
 	<tr>
 		<th><b id="memberId"></b> 님이 즐겨찾는 오글러 <b id="favoriteMemberCnt"></b></th>
 	</tr>

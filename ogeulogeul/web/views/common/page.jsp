@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>http://www.blueb.co.kr</title>
-<link href="css/page.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.vide.js"></script>
+<link href="/ogeul/css/page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/ogeul/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/ogeul/js/jquery.vide.js"></script>
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 </style>
@@ -55,7 +55,7 @@
 </head>
 <body>
 <div id="video_bg" style="width:100%; height:110%;"
-    data-vide-bg="mp4: videos/ogeulvideo.mp4, poster: ./bg.jpg"
+    data-vide-bg="mp4: /ogeul/videos/ogeulvideo.mp4, poster: ./bg.jpg"
     data-vide-options="loop: true, position: 0% 50%"> 
    <!--
    <div style="text-align:center; padding-top:170px;">

@@ -18,9 +18,31 @@ public class BoardService {
 		return boardNum;
 	}
 	
-	public List<Board> selectList() {
+	public List<Board> selectAllList() {
 		Connection conn = getConnection();
-		List<Board> boardList = new BoardDao().selectList(conn) ;
+		List<Board> boardList = new BoardDao().selectAllList(conn) ;
+		close(conn);
+		return boardList;
+	}
+	
+	public List<Board> selectSortedBoardList(String type) {
+		Connection conn = getConnection();
+		List<Board> boardList = new BoardDao().selectSortedBoardList(conn, type) ;
+		close(conn);
+		return boardList;
+		
+	}
+	
+	public List<Board> selectMemberBoardList(String memberId) {
+		Connection conn = getConnection();
+		List<Board> boardList = new BoardDao().selectMemberBoardList(conn, memberId) ;
+		close(conn);
+		return boardList;
+	}
+	
+	public List<Board> selectLikedBoardList(String memberId) {
+		Connection conn = getConnection();
+		List<Board> boardList = new BoardDao().selectLikedBoardList(conn, memberId) ;
 		close(conn);
 		return boardList;
 	}
@@ -42,7 +64,12 @@ public class BoardService {
 	}
 
 	public int deleteBoard(int boardNum) {
-		return 0;
+		Connection conn = getConnection();
+		int result = new BoardDao().deleteBoard(conn, boardNum);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 
 	public int warningBoard(int boardNum) {

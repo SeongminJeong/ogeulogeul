@@ -36,7 +36,8 @@ function callbackList(data) {
 	}
 	
 	for (var i in jsonArr.list) {
-		
+
+		tr = document.createElement("tr");
 		td = document.createElement("td");
 		
 		var boardNum = jsonArr.list[i].boardNum;
@@ -187,14 +188,16 @@ function callbackList(data) {
 		
 		tr.appendChild(td);
 
+		/*
 		if (tr.childNodes.length == 4) {
 			document.getElementById("listbody").appendChild(tr);
 			tr = document.createElement("tr");
 		}
-		
+		*/
+
+		document.getElementById("listbody").appendChild(tr);
 		
 	}
-	document.getElementById("listbody").appendChild(tr);
 	
 }
 

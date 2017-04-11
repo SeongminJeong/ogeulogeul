@@ -76,7 +76,7 @@ public class BoardDao {
 		return boardNum;
 	}
 	
-	public List<Board> selectList(Connection conn) {
+	public List<Board> selectAllList(Connection conn) {
 
 		List<Board> boardList = new ArrayList<Board>();
 		Statement stmt = null;
@@ -137,6 +137,194 @@ public class BoardDao {
 		return boardList;
 	}
 	
+	public List<Board> selectSortedBoardList(Connection conn, String type) {
+
+		List<Board> boardList = new ArrayList<Board>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		int boardNum;
+		String memberId;
+		int likeCount;
+		int category;
+		Date uploadDate;
+		int boardWarning;
+		String title;
+		String content;
+		String stillcut;
+		String producer;
+		Board board;
+		
+		String query = "select * from " + type + " order by 6";
+		try {
+			
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				boardNum = rs.getInt("board_num");
+				memberId = rs.getString("member_id");
+				likeCount = rs.getInt("like_count");
+				category = rs.getInt("category");
+				uploadDate = rs.getDate("upload_date");
+				boardWarning = rs.getInt("board_warning");
+				title = rs.getString("title");
+				content = rs.getString("content");
+				stillcut = rs.getString("stillcut");
+				producer = rs.getString("producer");
+				
+				board = new Board(boardNum, memberId,
+						category, title, content, stillcut, producer);
+				
+				board.setLikeCount(likeCount);
+				board.setUploadDate(uploadDate);
+				board.setBoardWarning(boardWarning);
+				
+				boardList.add(board);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+				
+		return boardList; 
+	}
+	
+	public List<Board> selectMemberBoardList(Connection conn, String memberId) {
+
+		List<Board> boardList = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int boardNum;
+		int likeCount;
+		int category;
+		Date uploadDate;
+		int boardWarning;
+		String title;
+		String content;
+		String stillcut;
+		String producer;
+		Board board;
+		
+		String query = "select * from movie where member_id=? union "
+				+ "select * from book where member_id=? union "
+				+ "select * from music where member_id=? union "
+				+ "select * from drama where member_id=? union "
+				+ "select * from comic where member_id=? "
+				+ "order by 6";
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, memberId);
+			pstmt.setString(4, memberId);
+			pstmt.setString(5, memberId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				boardNum = rs.getInt("board_num");
+				likeCount = rs.getInt("like_count");
+				category = rs.getInt("category");
+				uploadDate = rs.getDate("upload_date");
+				boardWarning = rs.getInt("board_warning");
+				title = rs.getString("title");
+				content = rs.getString("content");
+				stillcut = rs.getString("stillcut");
+				producer = rs.getString("producer");
+				
+				board = new Board(boardNum, memberId,
+						category, title, content, stillcut, producer);
+				
+				board.setLikeCount(likeCount);
+				board.setUploadDate(uploadDate);
+				board.setBoardWarning(boardWarning);
+				
+				System.out.println(boardNum + ", " + title);
+				boardList.add(board);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+					
+		return boardList;
+	}
+	
+	public List<Board> selectLikedBoardList(Connection conn, String memberId) {
+
+		List<Board> boardList = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int boardNum;
+		int likeCount;
+		int category;
+		Date uploadDate;
+		int boardWarning;
+		String title;
+		String content;
+		String stillcut;
+		String producer;
+		Board board;
+		String likedMemberId;
+		
+		String query = "select * from (select * from movie union "
+				+ "select * from book union "
+				+ "select * from music union "
+				+ "select * from drama union "
+				+ "select * from comic) "
+				+ "where board_num "
+				+ "in (select BOARD_NUM from LIKE_BOARD where MEMBER_ID=?)";
+		try {
+			
+			System.out.println(memberId);
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				boardNum = rs.getInt("board_num");
+				likeCount = rs.getInt("like_count");
+				category = rs.getInt("category");
+				uploadDate = rs.getDate("upload_date");
+				boardWarning = rs.getInt("board_warning");
+				title = rs.getString("title");
+				content = rs.getString("content");
+				stillcut = rs.getString("stillcut");
+				producer = rs.getString("producer");
+				likedMemberId = rs.getString("member_id");
+				
+				board = new Board(boardNum, likedMemberId,
+						category, title, content, stillcut, producer);
+				
+				board.setLikeCount(likeCount);
+				board.setUploadDate(uploadDate);
+				board.setBoardWarning(boardWarning);
+				
+				boardList.add(board);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+					
+		return boardList;
+	}
+	
 	public List<Board> selectBoard(Connection conn, int memberId) {
 		return null;
 	}
@@ -185,7 +373,28 @@ public class BoardDao {
 	}
 
 	public int deleteBoard(Connection conn, int boardNum) {
-		return 0;
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from board where board_num=?";
+		
+		try {
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNum);
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			close(pstmt);
+		}
+
+		commit(conn);
+		
+		return result;
 	}
 
 	

@@ -7,6 +7,7 @@ var Ca = /\+/g;
 function requestList() {
 	$.ajax({
 		url: "BoardListServlet",
+		data: { flag: "0", memberId: " "},
 		dataType: "json",
 		success: function(data) {
 			callbackList(data);
@@ -37,10 +38,10 @@ function callbackList(data) {
 		*/
 		var td = document.createElement("td"); // <td> 생성
 		var boardNum = jsonArr.list[i].boardNum;
+		var category = jsonArr.list[i].category;
 		var content = decodeURIComponent((jsonArr.list[i].content).replace(Ca, " "));
 		var stillcut = jsonArr.list[i].stillcut;
-		var favoriteMemberId = jsonArr.list[i].memberId;
-		var favorite_like_declare = "";
+		var boardMemberId = jsonArr.list[i].memberId;
 		
 		$.ajax({
 			url: "BoardLikeServlet",
@@ -59,7 +60,7 @@ function callbackList(data) {
 		$.ajax({
 			url: "MemberFavoriteServlet",
 			data : { memberId : memberId,
-				favoriteMemberId : favoriteMemberId,
+				favoriteMemberId : boardMemberId,
 				flag : 0},
 				async : false,
 				success : function(data) {
@@ -70,78 +71,120 @@ function callbackList(data) {
 				}
 		});
 		
-		favorite_like_declare = "<label class='checkbox-wrap'>"
+		var favorite = " <label class='checkbox-wrap'>"
 			+ "<input type='checkbox' "
-			+ "onclick='favorite(this, \'" + favoriteMemberId + "\');' "
-			+ favoriteIsChecked + "><i class='favorite-icon'></i></label>"
-			+ "<label class='checkbox-wrap'>"
-			+ "<input type='checkbox' "
-			+ "onclick='like(" + jsonArr.list[i].category + ", " + boardNum + ", " + jsonArr.list[i].likeCount + ");' "
-			+ likeIsChecked + "><i class='check-icon'></i></label>"
-			+ "<a data-fancybox data-src='declare.jsp?"
+			+ "onclick='favorite(this, \"" + boardMemberId + "\");' "
+			+ favoriteIsChecked + "><i class='favorite-icon'></i></label>";
+		var declare_like = "<a data-fancybox data-src='declare.jsp?"
 			+ "memberId=" + memberId + "&"
 			+ "boardNum=" + boardNum + "'>"
-			+ "<i class='declare-icon'></i></a>";
+			+ "<i class='declare-icon'></i></a>"
+			+ "<label class='checkbox-wrap'>"
+			+ "<input type='checkbox' "
+			+ "onclick='like(" + category + ", "
+			+ boardNum + ", " + jsonArr.list[i].likeCount + ");' "
+			+ likeIsChecked + "><i class='like-icon'></i></label>&nbsp;";
+		var deleteIcon = "<a href='javascript:deleteBoard(" + boardNum + ");'>"
+		+ "<i class='delete-icon'></i></a>";
 		
 		if (jsonArr.list[i].category == "1") {
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : favorite_like_declare)
-				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
-				+ " <img src='images/f01714817750f2b3d22c5ab81dc53ddf[1].png'></td></tr><tr>"
-				+ "<td><p><a data-fancybox data-src='"
-				+ "http://movie.naver.com/movie/search/result.nhn?query="
-				+ encodeURI(decodeURIComponent(jsonArr.list[i].title))
-				+ "&section=all&ie=utf8'>"
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+				+ "<a href=''>"
+				+ "<img width='45' height='45' class='img-circle' align='left' src='/ogeul/images/default.png'>"
+				+ "&nbsp;" + jsonArr.list[i].memberId + "</a>&nbsp;"
+				+ ((memberId == boardMemberId || memberId == null) ? "" : favorite)
+				+ "<td id='td' class='right'>"
+				+ (memberId==null ? "" : declare_like)
+				+ "<label id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "&nbsp;</label>"
+				+ (memberId == boardMemberId ? deleteIcon : "") + "</td></tr>"
+				+ "<tr><td colspan='2' id='td2' onmouseover='signiture(this, " + category + ", 0);' onmouseout='signiture(this, " + category + ", 1);'>"
+				+ "<div style='position:relative;'>"
+				+ "<img width='30px' height='30px' style='position:absolute;top:0px;visibility:hidden;z-index: 2'/></div>"
+				+ "<span><a data-fancybox data-src='"
+				+ "/ogeul/views/BoardDetail.jsp?category=1"
+				+ "&boardNum=" + boardNum + "&title=" + jsonArr.list[i].title + "'>"
 				+ (content == " " ? "<img src='/ogeul/board_uploadFiles/" + stillcut + "'>" : content)
-				+ "</a></p></td></tr></table>";
-			
-			if (content != " " && stillcut != null) {
-				td.children[0].children[0].children[0].nextSibling.style.background = "url(/ogeul/board_uploadFiles/" + stillcut + ")";
-				td.style.backgroundSize = "cover";
-			}
+				+ "</a></span></td></tr></table>";
 
-			$("#innerTable td").css("border", "1px solid white");
+			if (content != " " && stillcut != null) {
+				td.children[0].children[0].children[0].nextSibling.style.background = "url(/ogeul/board_uploadFiles/" + stillcut + ") no-repeat";
+				td.children[0].children[0].children[0].nextSibling.style.backgroundSize = "contain";
+				td.children[0].children[0].children[0].nextSibling.style.backgroundPosition = "center"; 
+			}
+			
 		}
 
 		else if (jsonArr.list[i].category == "2")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : favorite_like_declare)
-				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
-				+ "<img src='images/tv[1].png'></td></tr>"
-				+ "<tr><td><p><a data-fancybox data-src='"
-				+ "http://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q="
-				+ decodeURIComponent(jsonArr.list[i].title) + "'>"
-				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+				+ "<a href=''>"
+				+ "<img width='45' height='45' class='img-circle' align='left' src='/ogeul/images/default.png'>"
+				+ "&nbsp;" + jsonArr.list[i].memberId + "</a>&nbsp;" 
+				+ ((memberId == boardMemberId || memberId == null) ? "" : favorite) + "</td>"
+				+ "<td id='td' class='right'>"
+				+ (memberId==null ? "" : declare_like)
+				+ "<label id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "&nbsp;</label>"
+				+ (memberId == boardMemberId ? deleteIcon : "") + "</td></tr>"
+				+ "<tr><td colspan='2' id='td2' onmouseover='signiture(this, " + category + ", 0);' onmouseout='signiture(this, " + category + ", 1);'>"
+				+ "<div style='position:relative;'>"
+				+ "<img width='30px' height='30px' style='position:absolute;top:0px;visibility:hidden'/></div>"
+				+ "<span><a data-fancybox data-src='"
+				+ "/ogeul/views/BoardDetail.jsp?category=1"
+				+ "&boardNum=" + boardNum + "&title=" + jsonArr.list[i].title + "'>"
+				+ content + "</a></span></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "3")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : favorite_like_declare)
-				+ "<p id='p" + boardNum + "'>"+ jsonArr.list[i].likeCount + "</p>"
-				+ "<img src='images/5020-200[1].png'></td></tr>"
-				+ "<tr><td><p><a data-fancybox data-src='"
-				+ "http://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query="
-				+ decodeURIComponent(jsonArr.list[i].producer) + "+"
-				+ decodeURIComponent(jsonArr.list[i].title) + "'>"
-				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+				+ "<a href=''>"
+				+ "<img width='45' height='45' class='img-circle' align='left' src='/ogeul/images/default.png'>"
+				+ "&nbsp;" + jsonArr.list[i].memberId + "</a>&nbsp;"
+				+ ((memberId == boardMemberId || memberId == null) ? "" : favorite) + "</td>"
+				+ "<td id='td' class='right'>"
+				+ (memberId==null ? "" : declare_like)
+				+ "<label id='p" + boardNum + "'>"+ jsonArr.list[i].likeCount + "&nbsp;</label>"
+				+ (memberId == boardMemberId ? deleteIcon : "") + "</td></tr>"
+				+ "<tr><td colspan='2' id='td2' onmouseover='signiture(this, " + category + ", 0);' onmouseout='signiture(this, " + category + ", 1);'>"
+				+ "<div style='position:relative;'>"
+				+ "<img width='30px' height='30px' style='position:absolute;top:0px;visibility:hidden'/></div>"
+				+ "<span><a data-fancybox data-src='"
+				+ "/ogeul/views/BoardDetail.jsp?category=1"
+				+ "&boardNum=" + boardNum + "&title=" + jsonArr.list[i].title + "'>"
+				//+ decodeURIComponent(jsonArr.list[i].producer) + "+"
+				+ content + "</a></span></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "4")
-			td.innerHTML = "<table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : favorite_like_declare)
-				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
-				+ "<img src='images/music-headphones-icon-coloring-book-colouring-scallywag-coloring-5aNjee-clipart[1].png'></td></tr>"
-				+ "<tr><td><p><a data-fancybox data-src='" +
-				+ "http://music.naver.com/search/search.nhn?query="
-				+ decodeURIComponent(jsonArr.list[i].producer) + "+"
-				+ decodeURIComponent(jsonArr.list[i].title) + "&target=track'>"
-				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
+			td.innerHTML = "<table id='innerTable'><tr><td id='td'>"
+				+ "<a href=''>"
+				+ "<img width='45' height='45' class='img-circle' align='left' src='/ogeul/images/default.png'>"
+				+ "&nbsp;" + jsonArr.list[i].memberId + "</a>&nbsp;"
+				+ ((memberId == boardMemberId || memberId == null) ? "" : favorite) + "</td>"
+				+ "<td id='td' class='right'>"
+				+ (memberId==null ? "" : declare_like)
+				+ "<label id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "&nbsp;</label>"
+				+ (memberId == boardMemberId ? deleteIcon : "") + "</td></tr>"
+				+ "<tr><td colspan='2' id='td2' onmouseover='signiture(this, " + category + ", 0);' onmouseout='signiture(this, " + category + ", 1);'>"
+				+ "<div style='position:relative;'>"
+				+ "<img width='30px' height='30px' style='position:absolute;top:0px;visibility:hidden'/></div>"
+				+ "<span><a data-fancybox data-src='"
+				+ "/ogeul/views/BoardDetail.jsp?category=1"
+				+ "&boardNum=" + boardNum + "&title=" + jsonArr.list[i].title + "'>"
+				//+ decodeURIComponent(jsonArr.list[i].producer) + "
+				+ content + "</a></span></td></tr></table>";
 		
 		else if (jsonArr.list[i].category == "5")
-			td.innerHTML = " <table id='innerTable'><tr><td id='td'>" + jsonArr.list[i].memberId 
-				+ (memberId==null ? "" : favorite_like_declare)
-				+ "<p id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "</p>"
-				+ "<img src='images/tv[1].png'></td></tr>"
-				+ "<tr><td><p><a data-fancybox data-src=''>"
-				+ decodeURIComponent((jsonArr.list[i].content).replace(Ca, " ")) + "</a></p></td></tr></table>";
+			td.innerHTML = " <table id='innerTable'><tr><td id='td'>"
+				+ "<a href=''>"
+				+ "<img width='45' height='45' class='img-circle' align='left' src='/ogeul/images/default.png'>"
+				+ "&nbsp;" + jsonArr.list[i].memberId + "</a>&nbsp;"
+				+ ((memberId == boardMemberId || memberId == null) ? "" : favorite) + "</td>" 
+				+ "<td id='td' class='right'>"
+				+ (memberId==null ? "" : declare_like)
+				+ "<label id='p" + boardNum + "'>" + jsonArr.list[i].likeCount + "&nbsp;</label>"
+				+ (memberId == boardMemberId ? deleteIcon : "") + "</td></tr>"
+				+ "<tr><td colspan='2' id='td2' onmouseover='signiture(this, " + category + ", 0);' onmouseout='signiture(this, " + category + ", 1);'>"
+				+ "<div style='position:relative;'>"
+				+ "<img width='30px' height='30px' style='position:absolute;top:0px;visibility:hidden'/></div>"
+				+ "<span><a data-fancybox data-src=''>"
+				+ conent + "</a></span></td></tr></table>";
 		
 		tr.appendChild(td);
 
@@ -238,6 +281,26 @@ function declare(category, boardNum, likeCount) {
 		}
 	});
 }
+
+function signiture(object, category, flag) {
+	if (flag == 0) {
+		if (category == 1)
+			object.children[0].children[0].src = '/ogeul/images/f01714817750f2b3d22c5ab81dc53ddf[1].png';
+		else if (category == 2)
+			object.children[0].children[0].src = '/ogeul/images/tv[1].png';
+		else if (category == 3) 
+			object.children[0].children[0].src = '/ogeul/images/5020-200[1].png';
+		else if (category == 4)
+			object.children[0].children[0].src = '/ogeul/images/music-headphones-icon-coloring-book-colouring-scallywag-coloring-5aNjee-clipart[1].png';
+		else if (category == 5)
+			object.children[0].children[0].src = '/ogeul/images/tv[1].png';
+		
+		object.children[0].children[0].style.visibility = 'visible';
+	}
+	else if (flag == 1)
+		object.children[0].children[0].style.visibility = 'hidden';
+}
+
 
 /*
 http://music.naver.com/search/search.nhn?query=%uC544%uC774%uC720+%uC88B%uC740%uB0A0&x=0&y=0

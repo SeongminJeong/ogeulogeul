@@ -18,11 +18,13 @@
    #innerTable #td {
    height: 40px;
    }
-      
+
    #innerTable #td2 {
-   min-height: 300px;
+   vertical-align: middle;
+   height: 300px;
+   min-width: 300px;
+   border: 1px solid white;
    }
-      
    #innerTable .right {
    text-align: right;
    }

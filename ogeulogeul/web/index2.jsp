@@ -100,7 +100,7 @@ memberId = '<%=loginUser_index2.getMemberId() %>';
 							</td>
 						</tr>
 						<tr>
-							<td><p><a href="">어리다고 놀리지 말아요</a></p></td>
+							<td><p><a data-fancybox data-src="">어리다고 놀리지 말아요</a></p></td>
 						</tr>
 					</table>
 				</td>

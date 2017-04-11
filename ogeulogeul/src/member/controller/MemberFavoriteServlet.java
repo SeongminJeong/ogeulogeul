@@ -37,8 +37,8 @@ public class MemberFavoriteServlet extends HttpServlet {
 		if ((flag = Integer.parseInt(request.getParameter("flag"))) == 0) {
 			System.out.println("like / unlike ");
 			if ((result = new MemberService().isFavorite(
-					request.getParameter("favoriteMemberId"),
-					request.getParameter("memberId"))) == 1)
+					request.getParameter("memberId"),
+					request.getParameter("favoriteMemberId"))) == 1)
 				response.getWriter().append("like");
 			else if (result == -1)
 				response.getWriter().append("unlike");
@@ -47,8 +47,8 @@ public class MemberFavoriteServlet extends HttpServlet {
 		else if (flag == 1) {
 			
 			if ((result = new MemberService().memberFavorite(
-					request.getParameter("favoriteMemberId"),
-					request.getParameter("memberId"))) == 1)
+					request.getParameter("memberId"),
+					request.getParameter("favoriteMemberId"))) == 1)
 				response.getWriter().append("like");
 	
 			else if (result == -1)

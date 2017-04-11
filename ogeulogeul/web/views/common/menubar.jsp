@@ -96,6 +96,16 @@ margin-top: 0;
                      style="text-align: center">JOIN</a></li>
                  <li><a href="javascript:popupOpen();"
                      style="text-align: center">LOG IN</a></li>
+                 <li class="dropdown"><a class="dropdown-toggle"
+                     data-toggle="dropdown" href="#">CATEGORY <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=movie">MOVIE</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=drama">DRAMA</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=comic">COMICS</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=music">MUSIC</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=book">BOOK</a></li>
+                        <li><a href="#">TOP8</a></li>
+                     </ul></li>
                <%
                   }else{  //로그인 되었다면
                %>
@@ -105,18 +115,20 @@ margin-top: 0;
                    <li class="dropdown"><a class="dropdown-toggle"
                      data-toggle="dropdown" href="#">나만의 OGEUL<span class="caret"></span></a>
                      <ul class="dropdown-menu">
-                        <li><a href="#">너만의 OGEUL</a></li>
-                        </ul></li>
+                        <li><a data-fancybox data-src="/ogeul/views/board/myogeul.jsp?memberId=<%=loginUser.getMemberId() %>&memberId2=<%=loginUser.getMemberId() %>">나의 OGEUL</a></li>
+                        <li><a data-fancybox data-src="/ogeul/views/board/yourOgeul.jsp?memberId=<%=loginUser.getMemberId() %>">너의 OGEUL</a></li>
+                        <li><a data-fancybox data-src="/ogeul/views/board/favoriteMember.jsp?memberId=<%=loginUser.getMemberId() %>" >즐겨찾는 OGEULER</a></li>
+                     </ul></li>
                          <li><a href="/ogeul/logout"
                      style="text-align: center">LOG OUT</a></li>
-                  <li class="dropdown"><a class="dropdown-toggle"
+                 <li class="dropdown"><a class="dropdown-toggle"
                      data-toggle="dropdown" href="#">CATEGORY <span class="caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">MOVIE</a></li>
-                        <li><a href="#">DRAMA</a></li>
-                        <li><a href="#">COMICS</a></li>
-                        <li><a href="#">POET</a></li>
-                        <li><a href="#">BOOK</a></li>
+                  <ul class="dropdown-menu">
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=movie">MOVIE</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=drama">DRAMA</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=comic">COMICS</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=music">MUSIC</a></li>
+                        <li><a href="/ogeul/views/board/sorting.jsp?type=book">BOOK</a></li>
                         <li><a href="#">TOP8</a></li>
                      </ul></li>
                <% } %>   
