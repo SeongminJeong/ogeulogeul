@@ -1,0 +1,26 @@
+
+.checkbox-wrap { cursor: pointer; }
+
+.declare-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/vector_325_09-512.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+
+.checkbox-wrap input[type=checkbox] { display: none; }
+
+.delete-icon  { 
+	display: inline-block; 
+	width: 18px; 
+	height: 18px;
+	background: url(../images/icon-nav-close.png) left center no-repeat; 
+	background-size: cover;
+	vertical-align: middle;
+}
+
+td {
+	border: 1px solid red;
+}

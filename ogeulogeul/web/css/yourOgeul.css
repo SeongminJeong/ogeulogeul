@@ -1,0 +1,87 @@
+
+
+#table .tdCenter {
+     text-align: center;
+   }
+
+#innerTable {
+   width: 100%;
+  /* height: 100%;*/
+     
+   }
+   
+   #innerTable td {
+   vertical-align: middle;
+   border: 1px solid red;
+   }
+   
+   #innerTable #td {
+   height: 40px;
+   }
+      
+   #innerTable #td2 {
+   min-height: 300px;
+   }
+      
+   #innerTable .right {
+   text-align: right;
+   }
+   
+   #innerTable td p {
+   text-align: center;
+   }
+   
+   #innerTable td a img:hover {
+   /*width: 100%;*/
+   position: relative;
+   animation: eee .1s infinite;
+   }
+   
+   @keyframes eee {
+   0% {left:0;}
+   50% {left:5px;}
+   100% {left:0;}
+   }
+   
+   #innerTable #td img {
+   width: 30px;
+   height: 30px;
+   opacity: 0.7;
+   }
+ 
+	.checkbox-wrap { cursor: pointer; }
+	.checkbox-wrap .favorite-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/4a9f2e74fd8dca739cc93c7f3f0acd4c_star-grey-clip-art-gray-star-clipart_299-288.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	.checkbox-wrap .like-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/heart_256x256-32.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	.checkbox-wrap input[type=checkbox] { display: none; }
+	.checkbox-wrap input[type=checkbox]:checked + .favorite-icon { 
+		background: url(../images/star_PNG1594.png);
+		background-size: cover;
+	}
+	.checkbox-wrap input[type=checkbox]:checked + .like-icon { 
+		background: url(../images/678087-heart-128.png);
+		background-size: cover;
+	}
+	
+	.delete-icon  { 
+		display: inline-block; 
+		width: 18px; 
+		height: 18px;
+		background: url(../images/icon-nav-close.png) left center no-repeat; 
+		background-size: cover;
+		vertical-align: middle;
+	}
+	

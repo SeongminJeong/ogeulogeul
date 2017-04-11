@@ -2,8 +2,8 @@ package member.model.service;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
-import board.model.dao.BoardDao;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 
@@ -76,17 +76,26 @@ public class MemberService {
 
       return result;
    }
-   
+
+public int insertMemo(Member member) {
+	// TODO Auto-generated method stub
+    Connection con = getConnection();
+    int result = new MemberDao().insertMemo(con, member);
+    
+    if(result > 0)
+       commit(con);
+    else
+       rollback(con);
+    
+    close(con);
+
+    return result;
+}
 	public int isFavorite (String memberId, String favoriteMemberId) {
 		
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().isFavorite(conn, memberId, favoriteMemberId) ;
-		
-		if(result > 0)
-			commit(conn);
-		else
-			rollback(conn);
 		   
 		close(conn);
 		
@@ -100,7 +109,7 @@ public class MemberService {
 	   
 	   int result = new MemberDao().memberFavorite(memberId, favoriteMemberId, con);
 	   
-	   if(result > 0)
+	   if(result != 0)
 		   commit(con);
 	   else
 		   rollback(con);
@@ -109,5 +118,25 @@ public class MemberService {
 
 	   return result;
    }
+   public List<String> selectList(String memberId) {
+	   Connection conn = getConnection();
+	   List<String> favoriteMemberList = new MemberDao().selectList(conn, memberId) ;
+	   close(conn);
+	   return favoriteMemberList;
+   }
+
+public Member selectMember(String memberid) {
+		Connection con = getConnection();
+		Member member = new MemberDao().selectMember(con, memberid);
+		close(con);
+		return member;
+	}
+
+public CharSequence getFaceImage(String memberid) {
+	Connection con = getConnection();
+	String faceImage= new MemberDao().getFaceImage(con, memberid);
+	close(con);
+	return faceImage;
+}
 
 }

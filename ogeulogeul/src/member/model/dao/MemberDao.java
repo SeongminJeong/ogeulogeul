@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import member.model.vo.Member;
 
@@ -16,8 +18,8 @@ public class MemberDao {
 		ResultSet rset = null;
 		Member member = null;
 		
-		String query = "select * from member where " + 
-				"member_id = ? and password = ?";
+		String query = "select * from member where " 
+		+ "member_id = ? and password = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -169,16 +171,17 @@ System.out.println(member);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update member set password = ?, "
-				+ "email = ?, phone = ?  where member_id = ?";		
+		String query = "update member set password = ?, " +
+		 "email = ?, phone = ?, face = ? where member_id = ?";		
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, member.getPassword());
 			pstmt.setString(2, member.getEmail());
 			pstmt.setString(3, member.getPhone());	
-			pstmt.setString(4, member.getMemberId());			
-			
+			pstmt.setString(4, member.getFace());
+			pstmt.setString(5, member.getMemberId());			
+			System.out.println(query);
 			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -212,33 +215,28 @@ System.out.println(member);
 		return result;
 	}
 	
-	public int updateMember(Member member) {
+
+	public int insertMemo(Connection con, Member member) {
 		// TODO Auto-generated method stub
-		Connection con = getConnection();
-		int result = new MemberDao().updateMember(con, member);
+		int result = 0;
+		PreparedStatement pstmt = null;
 		
-		if(result > 0)
-			commit(con);
-		else
-			rollback(con);
-		
-		close(con);
+		String query = "update member set memo = ? "
+				+ "where member_id = ?";		
 
-		return result;
-	}
-
-	public int deleteMember(String uid) {
-		// TODO Auto-generated method stub
-		Connection con = getConnection();
-		int result = new MemberDao().deleteMember(con, uid);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member.getMemo());
+			pstmt.setString(2, member.getMemberId());			
+			
+			result = pstmt.executeUpdate();
 		
-		if(result > 0)
-			commit(con);
-		else
-			rollback(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
 		
-		close(con);
-
 		return result;
 	}
 	
@@ -327,4 +325,105 @@ System.out.println(member);
 		return result;
 	}
 	
+public List<String> selectList(Connection conn, String memberId) {
+		
+		System.out.println(memberId);
+		List<String> favoriteMemberList = new ArrayList<String>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "select FAVORITE_MEMBER_ID from FAVORITE_MEMBER "
+				+ "where MEMBER_ID = ?";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next())
+				favoriteMemberList.add(rs.getString("FAVORITE_MEMBER_ID"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return favoriteMemberList;
+	}
+
+public Member selectMember(Connection con, String memberid) {
+	// TODO Auto-generated method stub
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	Member member = null;
+	
+	String query = "select * from member where " + 
+			"member_id = ?";
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, memberid);
+					
+		rset = pstmt.executeQuery();
+		if(rset.next()){
+			member = new Member();
+			
+			member.setMemberId(memberid);
+			member.setPassword(rset.getString("password"));
+			member.setName(rset.getString("name"));
+			member.setGender(rset.getString("gender"));
+			member.setEmail(rset.getString("email"));
+			member.setPhone(rset.getString("phone"));
+			member.setBirth(rset.getDate("birth"));
+			member.setFace(rset.getString("face"));
+			member.setMemberWarning(rset.getInt("member_warning"));
+			member.setMemo(rset.getString("memo"));
+			System.out.println(member+"멤버셀렉트");
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+
+	return member;
+}
+
+public String getFaceImage(Connection con, String memberid) {
+	// TODO Auto-generated method stub
+	String result =" ";
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	String query = "select face from MEMBER "
+			+ "where MEMBER_ID = ?";
+	
+	try {
+		
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, memberid);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) {
+			
+			if((result = rs.getString("face")) != null)
+				System.out.println("널이 아님");
+			else result = "default.png";
+		}
+		System.out.println(result);
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		close(rs);
+		close(pstmt);
+	}
+	
+	return result;
+}
 }
